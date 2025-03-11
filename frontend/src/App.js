@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import MapView from "./components/MapView";
 import "./App.css";
 
+
 const App = () => (
   <Router>
     <div className="app-container">
@@ -29,4 +30,6 @@ const App = () => (
   </Router>
 );
 
+
 export default App;
+
