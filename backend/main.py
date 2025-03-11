@@ -1,24 +1,30 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+from models import Base, engine, SessionLocal, Location
 
 app = FastAPI()
 
-# Allow frontend requests
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Adjust for production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Database initialization
+Base.metadata.create_all(bind=engine)
 
-# Sample location data
-locations = [
-    {"id": 1, "name": "Location A", "lat": 40.7128, "lon": -74.0060, "description": "New York City"},
-    {"id": 2, "name": "Location B", "lat": 34.0522, "lon": -118.2437, "description": "Los Angeles"},
-    {"id": 3, "name": "Location C", "lat": 51.5074, "lon": -0.1278, "description": "London"},
-]
+# Dependency to get a session
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
+# Sample endpoint to fetch all locations
 @app.get("/locations")
-async def get_locations():
-    return locations
+def get_locations(db: Session = Depends(get_db)):
+    return db.query(Location).all()
+
+# Endpoint to add sample data (for testing)
+@app.post("/add_location")
+def add_location(name: str, description: str, lat: float, lon: float, db: Session = Depends(get_db)):
+    new_location = Location(name=name, description=description, lat=lat, lon=lon)
+    db.add(new_location)
+    db.commit()
+    db.refresh(new_location)
+    return new_location
