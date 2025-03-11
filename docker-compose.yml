@@ -1,22 +1,27 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  backend:
-    build: ./backend
-    ports:
-      - "8000:8000"
-    networks:
-      - app-network
-
   frontend:
     build: ./frontend
     ports:
       - "3000:80"
     depends_on:
       - backend
-    networks:
-      - app-network
 
-networks:
-  app-network:
-    driver: bridge
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite_data:/app/data
+    depends_on:
+      - db
+
+  db:
+    image: alpine
+    command: ["tail", "-f", "/dev/null"]
+    volumes:
+      - sqlite_data:/app/data
+
+volumes:
+  sqlite_data:
