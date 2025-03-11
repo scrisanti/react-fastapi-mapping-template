@@ -16,6 +16,8 @@ services:
       - "8000:8000"
     volumes:
       - sqlite_data:/app/data
+      # - ./backend/data:/app/data  # Local path for SQLite data
+
     depends_on:
       - db
     networks:

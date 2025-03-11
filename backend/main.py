@@ -18,7 +18,9 @@ def get_db():
 # Sample endpoint to fetch all locations
 @app.get("/locations")
 def get_locations(db: Session = Depends(get_db)):
-    return db.query(Location).all()
+    locations = db.query(Location).all()
+    print("DEBUG - Locations Data:", locations)
+    return locations # db.query(Location).all()
 
 # Endpoint to add sample data (for testing)
 @app.post("/add_location")

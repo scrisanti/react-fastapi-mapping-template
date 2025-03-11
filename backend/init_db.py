@@ -8,7 +8,9 @@ def init_db():
     sample_locations = [
         Location(name="New York", description="The Big Apple", lat=40.7128, lon=-74.0060),
         Location(name="Los Angeles", description="City of Angels", lat=34.0522, lon=-118.2437),
-        Location(name="Chicago", description="The Windy City", lat=41.8781, lon=-87.6298)
+        Location(name="Chicago", description="The Windy City", lat=41.8781, lon=-87.6298),
+        Location(name="Milwaukee", description="Go Brewers!", lat=43.0410, lon=-87.9097),
+        
     ]
 
     db.add_all(sample_locations)
