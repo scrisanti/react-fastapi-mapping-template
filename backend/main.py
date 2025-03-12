@@ -29,7 +29,7 @@ def get_db():
 async def get_locations(db: Session = Depends(get_db)):
     locations = db.query(Location).all()
     print("DEBUG - Locations Data:", locations)
-    return [{"id": 1, "name": "Sample Location", "lat": 40.7128, "lon": -74.006}] # locations # db.query(Location).all()
+    return locations # db.query(Location).all()
 
 # Endpoint to add sample data (for testing)
 @app.post("/add_location")
