@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   frontend:
+    image: react-leaflet-frontend:${TAG}
     build: ./frontend
     ports:
       - "3000:80"
@@ -11,6 +12,7 @@ services:
       - app_network
 
   backend:
+    image: fastapi-backend:${TAG}
     build: ./backend
     ports:
       - "8000:8000"
