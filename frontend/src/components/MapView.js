@@ -29,7 +29,7 @@ const MapView = () => {
     : defaultCenter;
 
   useEffect(() => {
-    axios.get("http://backend:8000/locations")
+    axios.get("http://127.0.0.1:8000/locations")
       .then(response => setLocations(response.data))
       .catch(error => console.error("Error fetching locations:", error));
   }, []);
