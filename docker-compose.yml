@@ -22,7 +22,7 @@ services:
       - db
     networks:
       - app_network
-      # - db_network  # Backend can talk to both frontend and database
+      - db_network  # Backend can talk to both frontend and database
 
   db:
     image: alpine
@@ -30,8 +30,8 @@ services:
     volumes:
       - sqlite_data:/app/data
     networks:
-      - app_network
-      # - db_network  # Database is isolated from frontend
+      # - app_network
+      - db_network  # Database is isolated from frontend
 
 volumes:
   sqlite_data:
@@ -39,5 +39,5 @@ volumes:
 networks:
   app_network:
     driver: bridge  # Standard Docker network type
-  # db_network:
-  #   driver: bridge
+  db_network:
+    driver: bridge
