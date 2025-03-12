@@ -36,7 +36,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: stinger5336/flask-api-test-docker
+          images: stinger5336/react-mapping-template-compose
 
       - name: Build and push Docker image
         id: push
@@ -46,6 +46,6 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
-          subject-name: index.docker.io/stinger5336/flask-api-test-docker
+          subject-name: index.docker.io/stinger5336/react-mapping-template-compose
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
